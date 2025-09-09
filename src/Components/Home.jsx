@@ -13,7 +13,7 @@ function Home() {
             <div className='flex flex-col justify-center items-center gap-15'>
             <div className='pt-20 md:pt-35 text-center max-w-[800px] my-auto mx-auto h-full'>
               <div className='flex flex-col md:flex-row items-center gap-2 justify-center'>
-                <img src={logo} className='h-20 w-20' />
+                <img src={logo} className='h-25 w-25' />
                 <h1 className='text-white text-4xl font-bold lg:text-5xl'>Computer Application Society</h1>
               </div>
                 <p className='text-white text-lg pt-5 font-light'>Empowering the next generation of tech innovators through competitive programming, hackathons, and knowledge-sharing initiatives that foster excellence in computer applications.</p>
