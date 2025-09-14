@@ -1,4 +1,5 @@
-import React, {useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import menuIcon from "../assets/menu.png";
 import crossIcon from "../assets/close.png";
 import logo from "../assets/cas_logo.png";
@@ -7,57 +8,69 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
-    const whatsAppLink =
-      "https://chat.whatsapp.com/BhEtOii34mF9rCl8vwqAf9";
+    const whatsAppLink = "https://chat.whatsapp.com/BhEtOii34mF9rCl8vwqAf9";
     window.open(whatsAppLink, "_blank");
   };
 
   return (
     <div className="fixed w-full bg-white shadow-xl md:p-5 p-2 z-50">
-      <div className="flex items-center justify-between md:grid md:grid-cols-2 md:gap-3">
-        <div className="flex items-center md:gap-2 gap-0">
-          <img className="md:h-15 md:w-15 h-10 w-10" src={logo} alt="logo" />
-          <h1 className="font-bold text-center md:text-xl lg:text-3xl text-blue-800 text-base">
-          Computer Application Society
+      <div className="flex items-center justify-between">
+        {/* LEFT: Logo + Title */}
+        <div className="flex items-center gap-2">
+          <img className="h-10 w-10 md:h-14 md:w-14" src={logo} alt="logo" />
+          <h1 className="font-bold text-blue-800 text-base md:text-xl lg:text-2xl">
+            Computer Application Society
           </h1>
         </div>
 
-        <ul className="hidden md:flex md:gap-2 lg:gap-8 md:justify-between lg:justify-center items-center">
-          <a
-            href="#Home"
-            className="hover:font-semibold hover:underline transform transition-transform duration-300 hover:scale-105"
+        {/* CENTER: Links (hidden on mobile + medium screen) */}
+        <ul className="hidden lg:flex lg:gap-8 items-center">
+          <Link
+            to={"/cas_bca.sit/#Home"}
+            className="hover:font-semibold hover:underline transform transition duration-300 hover:scale-105"
           >
             Home
-          </a>
-          <a
-            href="#Events"
-            className="hover:font-semibold hover:underline transform transition-transform duration-300 hover:scale-105"
+          </Link>
+          <Link
+            to={"/cas_bca.sit/#Events"}
+            className="hover:font-semibold hover:underline transform transition duration-300 hover:scale-105"
           >
             Events
-          </a>
-          <a
-            href="#About"
-            className="hover:font-semibold hover:underline transform transition-transform duration-300 hover:scale-105"
+          </Link>
+          <Link
+            to={"/cas_bca.sit/#About"}
+            className="hover:font-semibold hover:underline transform transition duration-300 hover:scale-105"
           >
             About
-          </a>
-          <a
-            href="#Contact"
-            className="hover:font-semibold hover:underline transform transition-transform duration-300 hover:scale-105"
+          </Link>
+          <Link
+            to={"/cas_bca.sit/#Contact"}
+            className="hover:font-semibold hover:underline transform transition duration-300 hover:scale-105"
           >
             Contact
-          </a>
-          <button
-            className="border rounded-sm p-2 lg:p-3 font-semibold my-auto bg-amber-400 hover:bg-amber-500 ml-10 transform transition-transform duration-300 hover:scale-110 cursor-pointer"
-            onClick={handleClick}
-          >
-            Join Socity
-          </button>
+          </Link>
         </ul>
 
+        {/* RIGHT: Actions (hidden on mobile + medium screen) */}
+        <div className="hidden lg:flex items-center gap-4">
+          <Link
+            to={"/cas_bca.sit/auth/login"}
+            className="rounded-sm px-4 py-3 font-semibold text-white bg-blue-700 hover:bg-blue-500 transform transition duration-300 hover:scale-105"
+          >
+            Login
+          </Link>
+          <button
+            onClick={handleClick}
+            className="rounded-sm px-4 py-3 font-semibold bg-amber-400 hover:bg-amber-500 transform transition duration-300 hover:scale-105 hover:cursor-pointer"
+          >
+            Join Society
+          </button>
+        </div>
+
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden focus:outline-none"
+          className="lg:hidden focus:outline-none"
         >
           <img
             src={isOpen ? crossIcon : menuIcon}
@@ -67,9 +80,9 @@ function Navbar() {
         </button>
       </div>
 
-
+      {/* Mobile Dropdown */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
@@ -86,9 +99,15 @@ function Navbar() {
           <a href="#Contact" className="hover:font-semibold hover:underline">
             Contact
           </a>
+          <Link
+            to={"/cas_bca.sit/auth/login"}
+            className="rounded-sm px-4 py-2 font-semibold text-white bg-blue-700 hover:bg-blue-500"
+          >
+            Login
+          </Link>
           <button
-            className="border rounded-sm p-2 bg-amber-400 hover:bg-amber-500"
             onClick={handleClick}
+            className="border rounded-sm px-4 py-2 bg-amber-400 hover:bg-amber-500"
           >
             Join Society
           </button>
