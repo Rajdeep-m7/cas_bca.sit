@@ -1,23 +1,13 @@
-
-import './App.css'
-import About from './Components/about'
-import Contact from './Components/Contact'
-import Events from './Components/events'
-import Footer from './Components/Footer'
-import Home from './Components/Home'
-import Navbar from './Components/Navbar'
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  return(
-   <>
-      <Navbar />
-      <Home />
-      <About />
-      <Events />
-      <Contact />
-      <Footer />
-   </>
-  )
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
