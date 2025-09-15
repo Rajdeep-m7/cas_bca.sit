@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import menuIcon from "../assets/menu.png";
 import crossIcon from "../assets/close.png";
 import logo from "../assets/cas_logo.png";
+import UserDropdown from "./UserDropDown";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { session } = useAuth();
+
+  console.log(session?.user?.email);
 
   const handleClick = () => {
     const whatsAppLink = "https://chat.whatsapp.com/BhEtOii34mF9rCl8vwqAf9";
@@ -49,16 +54,26 @@ function Navbar() {
           >
             Contact
           </Link>
+          <Link
+            to={"/cas_bca.sit/addProject"}
+            className="hover:font-semibold hover:underline transform transition duration-300 hover:scale-105"
+          >
+            Add Project
+          </Link>
         </ul>
 
         {/* RIGHT: Actions (hidden on mobile + medium screen) */}
         <div className="hidden lg:flex items-center gap-4">
-          <Link
-            to={"/cas_bca.sit/auth/login"}
-            className="rounded-sm px-4 py-3 font-semibold text-white bg-blue-700 hover:bg-blue-500 transform transition duration-300 hover:scale-105"
-          >
-            Login
-          </Link>
+          {session?.user ? (
+            <UserDropdown />
+          ) : (
+            <Link
+              to={"/cas_bca.sit/auth/login"}
+              className="rounded-sm px-4 py-3 font-semibold text-white bg-blue-700 hover:bg-blue-500 transform transition duration-300 hover:scale-105"
+            >
+              Login
+            </Link>
+          )}
           <button
             onClick={handleClick}
             className="rounded-sm px-4 py-3 font-semibold bg-amber-400 hover:bg-amber-500 transform transition duration-300 hover:scale-105 hover:cursor-pointer"
