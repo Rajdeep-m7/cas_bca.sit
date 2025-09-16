@@ -1,7 +1,9 @@
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginSchema } from "../../schemas/authSchemas";
 import { FaSpinner } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { useAuth } from "../../hooks/useAuth";
 
 function Login() {
   const {
@@ -21,15 +23,23 @@ function Login() {
     onSubmit,
   });
 
-  async function onSubmit(values, actions) {
-    //api request
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, 2000)
-    );
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    actions.resetForm();
+  const from = location.state?.from?.pathname || "/cas_bca.sit";
+
+  async function onSubmit(values, actions) {
+    const { email, password } = values;
+
+    const result = await login(email, password);
+
+    if (result.success) {
+      navigate(from, { state: { showLoginToast: true }, replace: true });
+      actions.resetForm();
+      return;
+    }
+    toast.error(result.error);
   }
 
   return (

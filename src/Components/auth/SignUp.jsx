@@ -1,7 +1,9 @@
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { signUpSchema } from "../../schemas/authSchemas";
 import { FaSpinner } from "react-icons/fa";
+import { useAuth } from "../../hooks/useAuth";
 
 function SignUp() {
   const {
@@ -22,15 +24,21 @@ function SignUp() {
     onSubmit,
   });
 
-  async function onSubmit(values, actions) {
-    //api request
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, 2000)
-    );
+  const { signUp } = useAuth();
 
-    actions.resetForm();
+  async function onSubmit(values, actions) {
+    try {
+      const { email, password } = values;
+      const result = await signUp(email, password);
+      if (result.success) {
+        toast("Please check your mail to confirm!");
+        actions.resetForm();
+        return;
+      }
+      toast.error(result.error);
+    } catch (error) {
+      console.error(`some error occured: ${error.message}`);
+    }
   }
 
   return (
