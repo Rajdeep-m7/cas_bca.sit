@@ -29,7 +29,12 @@ function HomePage() {
       toast.success("Successfully logged in!");
       navigate(pathname, { replace: true });
     }
-  }, [state?.showLoginToast, pathname, navigate]);
+
+    if (state?.showAddedToast) {
+      toast.success("Successfully added Project!");
+      navigate(pathname, { replace: true });
+    }
+  }, [state?.showLoginToast, pathname, navigate, state?.showAddedToast]);
 
   return (
     <>
