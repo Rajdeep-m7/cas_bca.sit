@@ -8,6 +8,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import GuestRoute from "./GuestRoute";
 import ProtectedRoute from "./ProtectedRoute";
 import AddProjectPage from "../pages/AddProjectPage";
+import ProjectShowcase from "../pages/ProjectShowcase";
 
 function AppRoutes() {
   return (
@@ -41,6 +42,7 @@ function AppRoutes() {
             }
           />
         </Route>
+        <Route path="projectShowcase" element={<ProjectShowcase/>}/>
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
