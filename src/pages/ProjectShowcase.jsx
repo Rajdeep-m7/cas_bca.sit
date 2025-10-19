@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import PostCard from './PostCard'
+import { Search } from 'lucide-react'
+import SearchBar from './SearchBar'
 
 const ProjectShowcase = () => {
     const [projects, setProjects] = useState([
@@ -109,6 +111,25 @@ const ProjectShowcase = () => {
         },
     ])
 
+  const [searchResults, setSearchResults] = useState([])
+
+  const handleSearch = (query) => {
+    if(!query.trim()){
+      setSearchResults(projects)
+      return
+    }
+    const filtered = projects.filter((p) =>
+      p.title.toLowerCase().includes(query.toLowerCase())
+    )
+    setSearchResults(filtered)
+    console.log("Searching for: ",query)
+  }
+
+  useEffect(()=>{
+    setSearchResults(projects)
+  },[projects])
+
+
     const handleLike = (id) =>{
         setProjects(
             projects.map((el)=>{
@@ -130,16 +151,19 @@ const ProjectShowcase = () => {
     }
 
   return (
-    <div className='pt-10 sm:pt-20 lg:pt-22'>
-        <header className='h-[100px] flex items-center px-10 md:px-15px lg:px-20'>
-            <h1 className='text-[18px] sm:text-[22px] lg:text-[30px] uppercase font-montserrat font-[800] tracking-[3px]'>Project Showcase</h1>
+    <div className='pt-15 sm:pt-25 lg:pt-30'>
+        <header className='grid mb-5 sm:flex gap-2 sm:justify-between items-center px-10 md:px-15px lg:px-20'>
+            <div>
+              <h1 className='text-[18px] text-center sm:text-[22px] lg:text-[30px] uppercase font-black tracking-[3px]'>Project Showcase</h1>
+            </div>
+            <SearchBar onSearch={handleSearch}/>
         </header>
 
         <article className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
         px-10 md:px-15px lg:px-20 pb-10 gap-6 '>
-            {projects.map((p)=>(
+            {searchResults.map((p,index)=>(
                 <PostCard
-                    key={p.id}
+                    key={index}
                     id={p.id}
                     image={p.image}
                     title={p.title}
